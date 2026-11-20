@@ -1,0 +1,29 @@
+# Cloudflare Workers deployment. Run `yarn deploy` (or `yarn wrangler deploy`).
+#
+# Required secret, set once and never committed:
+#   yarn wrangler secret put SECRET_ID      # paste the output of: openssl rand -hex 32
+#
+# Local secrets for `yarn dev:worker` go in .dev.vars (see .dev.vars.example).
+name = "lossless-addon"
+main = "src/adapters/worker.ts"
+compatibility_date = "2026-10-01"
+
+# Publish on https://<name>.<your-subdomain>.workers.dev. Set to false if you use a custom domain.
+workers_dev = true
+# No extra public URL per uploaded version. The addon is the same service on every URL, so extra URLs only add surface.
+preview_urls = false
+
+# Public settings. Anything secret belongs in `wrangler secret`, not here.
+[vars]
+# Uncomment to override the defaults:
+# LOG_LEVEL = "info"
+# PROVIDER_MODE = "multi"
+# REQUEST_TIMEOUT_MS = "6000"
+# UPSTREAM_RETRIES = "1"
+# CACHE_TTL_SECONDS = "300"
+# MONOCHROME_BASE_URL = "https://tracks.monochrome.st"
+# INSTABLE_BASE_URL = "https://instable.arcod.xyz"
+
+# Request logs and console output in the Cloudflare dashboard.
+[observability]
+enabled = true
